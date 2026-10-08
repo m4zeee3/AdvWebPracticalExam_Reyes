@@ -1,5 +1,6 @@
 import { useEffect , useState} from 'react';
 import axios from "axios";
+import Alert from '@mui/material/Alert'
 
 import './App.css'
 const API_URL = "http://localhost:5001/students";
@@ -36,6 +37,10 @@ function App() {
 
   const handleSubmit = async()=>{
     
+    if(!name || !course || !age){
+      Alert("All Fields are required!");
+      return;
+    }
 
     const studentData = {
       name: name,
@@ -82,9 +87,9 @@ function App() {
       <h1>Student Management System</h1>
       <h2>{editingId == null? "Add Student" : "Edit Student"}</h2>
 
-      <input placeholder="Name" value={name} onChange={(event)=> setName(event.target.value)}  /> <br/>
-      <input placeholder="Course" value={course} onChange={(event)=> setCourse(event.target.value)}  /> <br/>
-      <input placeholder="Age" value={age} onChange={(event)=> setAge(event.target.value)}  /> <br/>
+      <input placeholder="Name" value={name} onChange={(event)=> setName(event.target.value)} /> <br/>
+      <input placeholder="Course" value={course} onChange={(event)=> setCourse(event.target.value)} /> <br/>
+      <input placeholder="Age" value={age} onChange={(event)=> setAge(event.target.value)} /> <br/>
       
       <button onClick={handleSubmit}>{editingId == null? "Add Student" : "Update Student"}</button>
       {editingId !== null &&(
